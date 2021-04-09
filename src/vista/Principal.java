@@ -72,7 +72,7 @@ public class Principal extends PApplet{
 		
 	//Creacion de elementos
 		Elemento elementoSol = new Elemento("Sol", false, 1, sol, 100,100);
-		Elemento elementoNiño = new Elemento("Niño", false, 1, niño, 255,255);
+		Elemento elementoNiño = new Elemento("Niño", false, 1, niño, 255,610);
 		Elemento elementoArbol = new Elemento("Arbol", false, 1, arbol, 255,255);
 		Elemento elementoSalva = new Elemento("SalvaVidas", false, 1, salvaVidas, 255,255);
 		Elemento elementoNave = new Elemento("NaveEspacial", false, 1, naveEspacial, 255,255);
@@ -130,6 +130,16 @@ public class Principal extends PApplet{
 			if (mouseX > 100 && mouseX < 100 + 377 && mouseY > 100 && mouseY < 100 + 377) {
 				image(elemenOprimido[0], controlador.darEscenas()[1].darElemento().getPosX()-182, controlador.darEscenas()[1].darElemento().getPosY()-182);
 			}
+			break;
+		case 2:
+			//ESCENA 2
+			//Imagen Escena 2
+			image(controlador.darEscenas()[2].darImagen(), 0, 0);
+			
+			//Imagen Elemento de Escena 2 - Niño
+			imageMode(CENTER);
+			image(controlador.darEscenas()[2].darElemento().getImagen(),controlador.darEscenas()[2].darElemento().getPosX(),controlador.darEscenas()[2].darElemento().getPosY());
+			imageMode(CORNER);
 		}
 	}
 	
@@ -163,10 +173,22 @@ public class Principal extends PApplet{
 	
 	@Override
 	public void mouseReleased() {
+		//Suelto el elemento - Sol, paso a la siguiente pantalla
 		sel = null;
 		int tempX = controlador.darEscenas()[1].darElemento().getPosX();
 		int tempY = controlador.darEscenas()[1].darElemento().getPosY();
 		if (tempX >89 && tempY >609 && controlador.darPantalla()==1) {
+			controlador.plusPantalla();
+		}
+	}
+	
+	@Override
+	public void keyPressed() {
+		//Presiono la tecla para que pase a la siguiente pantalla
+		if(keyCode == UP) {
+			controlador.darEscenas()[2].darElemento().setPosY(500);
+		}else {
+			controlador.darEscenas()[2].darElemento().setPosY(610);
 			controlador.plusPantalla();
 		}
 	}
