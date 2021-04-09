@@ -49,21 +49,21 @@ public class Principal extends PApplet{
 		naveEspacial = loadImage("NaveEspacial.png");
 		
 	//Creacion de elementos
-		Elemento elementoSol = new Elemento("Sol", false, 0, sol);
-		Elemento elementoNiño = new Elemento("Niño", false, 0, niño);
-		Elemento elementoArbol = new Elemento("Arbol", false, 0, arbol);
-		Elemento elementoSalva = new Elemento("SalvaVidas", false, 0, salvaVidas);
-		Elemento elementoNave = new Elemento("NaveEspacial", false, 0, naveEspacial);
+		Elemento elementoSol = new Elemento("Sol", false, 1, sol);
+		Elemento elementoNiño = new Elemento("Niño", false, 1, niño);
+		Elemento elementoArbol = new Elemento("Arbol", false, 1, arbol);
+		Elemento elementoSalva = new Elemento("SalvaVidas", false, 1, salvaVidas);
+		Elemento elementoNave = new Elemento("NaveEspacial", false, 1, naveEspacial);
 		
 	//Creacion de escenas
-		Escena pantallaInicio = new Escena(new Elemento(), escenas[0]); 
+		Escena pantallaInicio = new Escena(new Elemento("",false,1,null), escenas[0]); 
 		Escena escena1 = new Escena(elementoSol, escenas[1]); 
 		Escena escena2 = new Escena(elementoNiño, escenas[2]); 
 		Escena escena3 = new Escena(elementoArbol, escenas[3]); 
 		Escena escena4 = new Escena(elementoSalva, escenas[4]); 
-		Escena escena4_1 = new Escena(new Elemento(), escenas[5]); 
+		Escena escena4_1 = new Escena(new Elemento("",false,1,null), escenas[5]); 
 		Escena escena5 = new Escena(elementoNave, escenas[6]); 
-		Escena escena5_1 = new Escena(new Elemento(), escenas[7]);
+		Escena escena5_1 = new Escena(new Elemento("",false,1,null), escenas[7]);
 		
 		controlador = new Control();
 		
@@ -80,7 +80,8 @@ public class Principal extends PApplet{
 	@Override
 	public void draw() {
 		background(255);
-		image(controlador.darEscenas()[0].darImagen(), 0, 0);
+			image(controlador.darEscenas()[1].darImagen(), 0, 0);
+			image(controlador.darEscenas()[1].darElemento().getImagen(),0, 0);
 	}
 
 }

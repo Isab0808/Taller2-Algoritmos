@@ -10,10 +10,12 @@ import processing.core.PImage;
 
 public class Cuento {
 	
+	private String estado;
 	private ArrayList <String> texto;
 	private Escena [] escenitas;
 	
 	public Cuento() {
+		estado = "";
 		texto = new ArrayList<String>();
 		escenitas = new Escena [8];
 		for (int i = 0; i < escenitas.length; i++) {
@@ -56,8 +58,9 @@ public class Cuento {
 	public void agregarEscena(Escena miEscena) {
 		boolean salir = false;
 		for (int i = 0; i < escenitas.length; i++) {
-			if (escenitas[i].darElemento().getNombre().equals("") && !salir) {
+			if (escenitas[i].darElemento().getTipo() !=1 && !salir) {
 				escenitas[i] = miEscena;
+				salir = true;
 			}
 		}
 	}
@@ -77,6 +80,14 @@ public class Cuento {
 
 	public Escena[] darEscena() {
 		return escenitas;
+	}
+	
+	public void cambioPantallas() {
+		switch (estado) {
+		case "Pantalla Inicio":
+			
+			break;
+		}
 	}
 
 }
