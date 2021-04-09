@@ -14,7 +14,7 @@ public class Cuento {
 	
 	public Cuento() {
 		texto = new ArrayList<String>();
-		escenitas = new Escena [8];
+		escenitas = new Escena [11];
 		for (int i = 0; i < escenitas.length; i++) {
 			escenitas[i] = new Escena();
 		}
