@@ -8,10 +8,12 @@ import vista.Principal;
 
 public class Control {
 
+	private int pantalla;
 	private Cuento logica;
 	private Principal vista;
 	
 	public Control() {
+		pantalla = 0;
 		logica = new Cuento();
 	}
 	
@@ -21,6 +23,22 @@ public class Control {
 	
 	public Escena[] darEscenas(){
 		return logica.darEscena();
+	}
+	
+	public void plusPantalla() {
+		pantalla++;
+	}
+	
+	public void menosPantalla () {
+		pantalla--;
+	}
+	
+	public void setPantalla (int pantalla) {
+		this.pantalla = pantalla;
+	}
+	
+	public int darPantalla() {
+		return pantalla;
 	}
 
 }

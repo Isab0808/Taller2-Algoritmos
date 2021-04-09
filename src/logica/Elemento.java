@@ -7,6 +7,7 @@ public class Elemento {
 	public String nombre;
 	public boolean estado;
 	public int tipo;
+	public int posX, posY;
 	
 	PImage imagen;
 	
@@ -17,11 +18,13 @@ public class Elemento {
 		this.imagen = null;
 	}
 	
-	public Elemento(String nombre, boolean estado, int tipo, PImage imagen) {
+	public Elemento(String nombre, boolean estado, int tipo, PImage imagen, int posX, int posY) {
 		this.nombre = nombre;
 		this.estado = estado;
 		this.tipo = tipo;
 		this.imagen = imagen;
+		this.posX = posX;
+		this.posY = posY;
 	}
 
 	public String getNombre() {
@@ -55,6 +58,24 @@ public class Elemento {
 	public void setImagen(PImage imagen) {
 		this.imagen = imagen;
 	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+	
+	
 	
 	
 

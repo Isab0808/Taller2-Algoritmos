@@ -16,8 +16,17 @@ public class Principal extends PApplet{
 	public void settings() {
 		size(933,900);
 	}
+	Elemento sel;
+	
+	
 	//PImage fondos
 	PImage[] escenas;
+	
+	//PImage Elementos Oprimidos
+	PImage[] elemenOprimido;
+	
+	//PImage Botones
+	PImage[] botones;
 	
 	// PImage individuales (elementos)
 	PImage sol;
@@ -30,6 +39,7 @@ public class Principal extends PApplet{
 	
 	@Override
 	public void setup() {
+		sel = null;
 	// Cargando PImages fondos
 		escenas = new PImage[8];
 		escenas[0] = loadImage("PantallaInicio.jpg");
@@ -41,6 +51,18 @@ public class Principal extends PApplet{
 		escenas[6] = loadImage("Escena5.jpg");
 		escenas[7] = loadImage("Escena5-1.jpg");
 		
+	// Cargando PImages Elementos Oprimidos
+		elemenOprimido = new PImage[4];
+		elemenOprimido[0] = loadImage("SolOprimido.png");
+		elemenOprimido[1] = loadImage("ArbolOprimido.png");
+		elemenOprimido[2] = loadImage("SalvavidasOprimido.png");
+		elemenOprimido[3] = loadImage("NaveEspacialOprimido.png");
+		
+	// Cargando PImages Botones
+		botones = new PImage[2];
+		botones[0] = loadImage("BotonInicioOprimido.png");
+		botones[1] = loadImage("BotonFinOprimido.png");
+		
 	// Cargando PImages individuales
 		sol = loadImage("Sol.png");
 		niño = loadImage("Niño.png");
@@ -49,21 +71,21 @@ public class Principal extends PApplet{
 		naveEspacial = loadImage("NaveEspacial.png");
 		
 	//Creacion de elementos
-		Elemento elementoSol = new Elemento("Sol", false, 1, sol);
-		Elemento elementoNiño = new Elemento("Niño", false, 1, niño);
-		Elemento elementoArbol = new Elemento("Arbol", false, 1, arbol);
-		Elemento elementoSalva = new Elemento("SalvaVidas", false, 1, salvaVidas);
-		Elemento elementoNave = new Elemento("NaveEspacial", false, 1, naveEspacial);
+		Elemento elementoSol = new Elemento("Sol", false, 1, sol, 0,0);
+		Elemento elementoNiño = new Elemento("Niño", false, 1, niño, 255,255);
+		Elemento elementoArbol = new Elemento("Arbol", false, 1, arbol, 255,255);
+		Elemento elementoSalva = new Elemento("SalvaVidas", false, 1, salvaVidas, 255,255);
+		Elemento elementoNave = new Elemento("NaveEspacial", false, 1, naveEspacial, 255,255);
 		
 	//Creacion de escenas
-		Escena pantallaInicio = new Escena(new Elemento("",false,1,null), escenas[0]); 
+		Escena pantallaInicio = new Escena(new Elemento("",false,1,null, 255,255), escenas[0]); 
 		Escena escena1 = new Escena(elementoSol, escenas[1]); 
 		Escena escena2 = new Escena(elementoNiño, escenas[2]); 
 		Escena escena3 = new Escena(elementoArbol, escenas[3]); 
 		Escena escena4 = new Escena(elementoSalva, escenas[4]); 
-		Escena escena4_1 = new Escena(new Elemento("",false,1,null), escenas[5]); 
+		Escena escena4_1 = new Escena(new Elemento("",false,1,null, 255,255), escenas[5]); 
 		Escena escena5 = new Escena(elementoNave, escenas[6]); 
-		Escena escena5_1 = new Escena(new Elemento("",false,1,null), escenas[7]);
+		Escena escena5_1 = new Escena(new Elemento("",false,1,null, 255,255), escenas[7]);
 		
 		controlador = new Control();
 		
@@ -79,9 +101,29 @@ public class Principal extends PApplet{
 	
 	@Override
 	public void draw() {
+		System.out.println(mouseX + "," + mouseY);
 		background(255);
+			
+		switch (controlador.darPantalla()) {
+		case 0:
+			//Imagen Pantalla Inicio 
+			image(controlador.darEscenas()[0].darImagen(), 0, 0);
+			
+			// Si esta el mouse encima del Boton mostrar imagen Boton Inicio Oprimido
+			if (mouseX > 660 && mouseX < 660 + 388 && mouseY > 656 && mouseY < 656 + 348) {
+				image(botones[0], 660, 656);
+			}
+			
+			break;
+		case 1:
+			//Imagen Escena 1
 			image(controlador.darEscenas()[1].darImagen(), 0, 0);
-			image(controlador.darEscenas()[1].darElemento().getImagen(),0, 0);
+			
+			//Imagen Elemento de Escena 1 - Sol
+			image(controlador.darEscenas()[1].darElemento().getImagen(),controlador.darEscenas()[1].darElemento().getPosX(),controlador.darEscenas()[1].darElemento().getPosY());
+		
+		}
 	}
+
 
 }

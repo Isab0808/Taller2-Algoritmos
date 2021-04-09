@@ -9,13 +9,10 @@ import java.util.Properties;
 import processing.core.PImage;
 
 public class Cuento {
-	
-	private String estado;
 	private ArrayList <String> texto;
 	private Escena [] escenitas;
 	
 	public Cuento() {
-		estado = "";
 		texto = new ArrayList<String>();
 		escenitas = new Escena [8];
 		for (int i = 0; i < escenitas.length; i++) {
@@ -81,13 +78,4 @@ public class Cuento {
 	public Escena[] darEscena() {
 		return escenitas;
 	}
-	
-	public void cambioPantallas() {
-		switch (estado) {
-		case "Pantalla Inicio":
-			
-			break;
-		}
-	}
-
 }
