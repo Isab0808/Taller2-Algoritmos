@@ -16,9 +16,9 @@ public class Principal extends PApplet{
 	public void settings() {
 		size(933,900);
 	}
+	//Sel para saber si ya se atrapo el elemento
 	Elemento sel;
 	Elemento sel2;
-	
 	
 	//PImage fondos
 	PImage[] escenas;
@@ -83,7 +83,7 @@ public class Principal extends PApplet{
 		Elemento elementoNiño = new Elemento("Niño", false, 1, niño, 255,610);
 		Elemento elementoArbol = new Elemento("Arbol", false, 1, arbol, 520,300);
 		Elemento elementoSalva = new Elemento("SalvaVidas", false, 1, salvaVidas, 320,70);
-		Elemento elementoNave = new Elemento("NaveEspacial", false, 1, naveEspacial, 255,255);
+		Elemento elementoNave = new Elemento("NaveEspacial", false, 1, naveEspacial, 310,610);
 		
 	//Creacion de escenas
 		Escena pantallaInicio = new Escena(new Elemento("",false,1,null, 255,255), escenas[0]); 
@@ -99,7 +99,6 @@ public class Principal extends PApplet{
 		Escena escena5_1 = new Escena(new Elemento("",false,1,null, 255,255), escenas[10]);
 		
 		controlador = new Control();
-		
 		controlador.agregarEscena(pantallaInicio);
 		controlador.agregarEscena(escena1);
 		controlador.agregarEscena(escena1_1);
@@ -140,22 +139,22 @@ public class Principal extends PApplet{
 			image(controlador.darEscenas()[1].darElemento().getImagen(),controlador.darEscenas()[1].darElemento().getPosX(),controlador.darEscenas()[1].darElemento().getPosY());
 			imageMode(CORNER);
 			
-			// Si esta el mouse encima del Boton mostrar imagen Boton Inicio Oprimido
+			// Si esta el mouse encima del Sol mostrar imagen Sol Oprimido
 			if (mouseX > 100 && mouseX < 100 + 377 && mouseY > 100 && mouseY < 100 + 377) {
 				image(elemenOprimido[0], controlador.darEscenas()[1].darElemento().getPosX()-182, controlador.darEscenas()[1].darElemento().getPosY()-182);
 			}
 			break;
 		case 2:
 			//ESCENA 1-1 ESTRELLA
-			//Imagen Escena 2
+			//Imagen Escena 1-1
 			image(controlador.darEscenas()[2].darImagen(), 0, 0);
 			
-			//Imagen Elemento de Escena 2 - ESTRELLA
+			//Imagen Elemento de Escena 1-1 - ESTRELLA
 			imageMode(CENTER);
 			image(controlador.darEscenas()[2].darElemento().getImagen(),controlador.darEscenas()[2].darElemento().getPosX(),controlador.darEscenas()[2].darElemento().getPosY());
 			imageMode(CORNER);
 			
-			// Si esta el mouse encima del Boton mostrar imagen Boton Inicio Oprimido
+			// Si esta el mouse encima de la Estrella mostrar imagen Estrella Oprimida
 			if (mouseX > 248 && mouseX < 248 + 65 && mouseY > 94 && mouseY < 94 + 64) {
 			image(elemenOprimido[4], controlador.darEscenas()[2].darElemento().getPosX()-32, controlador.darEscenas()[2].darElemento().getPosY()-32);
 			}
@@ -187,7 +186,7 @@ public class Principal extends PApplet{
 			//Imagen Elemento de Escena 3 - Arbol
 			image(controlador.darEscenas()[5].darElemento().getImagen(),controlador.darEscenas()[5].darElemento().getPosX(),controlador.darEscenas()[5].darElemento().getPosY());
 			
-			// Si esta el mouse encima del Boton mostrar imagen Boton Inicio Oprimido
+			// Si esta el mouse encima del Arbol mostrar imagen Arbol Oprimido
 			if (mouseX > 520 && mouseX < 520 + 276 && mouseY > 300 && mouseY < 300 + 586) {
 				image(elemenOprimido[1], controlador.darEscenas()[5].darElemento().getPosX()-14, controlador.darEscenas()[5].darElemento().getPosY()+124);
 			}
@@ -208,7 +207,7 @@ public class Principal extends PApplet{
 			//Imagen Elemento de Escena 4 - SalvaVidas
 			image(controlador.darEscenas()[7].darElemento().getImagen(),controlador.darEscenas()[7].darElemento().getPosX(),controlador.darEscenas()[7].darElemento().getPosY());
 			
-			// Si esta el mouse encima del Boton mostrar imagen Boton Inicio Oprimido
+			// Si esta el mouse encima del SalvaVidas mostrar imagen SalvaVidas Oprimido
 			if (mouseX > 320 && mouseX < 320 + 327 && mouseY > 7 && mouseY < 70 + 331) {
 				image(elemenOprimido[2], controlador.darEscenas()[7].darElemento().getPosX()+171, controlador.darEscenas()[7].darElemento().getPosY()-2);
 			}
@@ -220,6 +219,31 @@ public class Principal extends PApplet{
 			
 			fill(0);
 			ellipse(255, 255, 30, 30);
+			break;
+		case 9:
+			//ESCENA 5 NAVE ESPACIAL
+			//Imagen Escena 5
+			image(controlador.darEscenas()[9].darImagen(), 0, 0);
+			
+			//Imagen Elemento de Escena 5 - Nave Espacial
+			imageMode(CENTER);
+			image(controlador.darEscenas()[9].darElemento().getImagen(),controlador.darEscenas()[9].darElemento().getPosX(),controlador.darEscenas()[9].darElemento().getPosY());
+			imageMode(CORNER);
+			
+			// Si esta el mouse encima de la Nave Espacial mostrar imagen Nave Espacial Oprimido
+			if (mouseX > 310 && mouseX < 310 + 399 && mouseY > 610 && mouseY < 610 + 559) {
+				image(elemenOprimido[3], controlador.darEscenas()[9].darElemento().getPosX()-199, controlador.darEscenas()[9].darElemento().getPosY()-279);
+				}
+			break;
+		case 10:
+			//ESCENA 5-1 NAVE ESPACIAL
+			//Imagen Escena 5-1
+			image(controlador.darEscenas()[10].darImagen(), 0, 0);
+			
+			// Si esta el mouse encima del Boton mostrar imagen Boton Final Oprimido
+			if (mouseX > 100 && mouseX < 100 + 377 && mouseY > 100 && mouseY < 100 + 377) {
+				image(botones[1], 255, 255);
+			}
 			break;
 		}
 	}
@@ -277,18 +301,34 @@ public class Principal extends PApplet{
 				controlador.plusPantalla();
 				}
 			break;
-			
+		case 9:
+			//ESCENA 5 NAVE ESPACIAL
+			//Agarrar el Elemento Nave Espacial
+			if (mouseX > 310 && mouseX < 310 + 399 && mouseY > 610 && mouseY < 610 + 559) {
+				sel2 = controlador.darEscenas()[9].darElemento();
+				}
 		}
 	}
 	
 	@Override
 	public void mouseDragged() {
-		//Arrastrar el Elemento 1 - Sol
+		switch (controlador.darPantalla()) {
+		case 1:
+		//Arrastrar el Elemento Sol
 			if(sel != null) {
 				sel.setPosX(mouseX);
 				sel.setPosY(mouseY);
+			}
+			break;
+		case 9:
+			//Arrastrar el Elemento Nave Espacial
+			if(sel2 != null) {
+				sel2.setPosX(mouseX);
+				sel2.setPosY(mouseY);
+			}
+			break;
 		}
-	}
+}
 	
 	@Override
 	public void mouseReleased() {
@@ -302,14 +342,22 @@ public class Principal extends PApplet{
 			controlador.plusPantalla();
 		}
 		break;
+		case 9:
+		//Suelto el elemento - Nave Espacial, paso a la siguiente pantalla
+		sel2 = null;
+		int tempX2 = controlador.darEscenas()[9].darElemento().getPosX();
+		int tempY2 = controlador.darEscenas()[9].darElemento().getPosY();
+		if (tempX2 >=655 && tempY2 >=633 && controlador.darPantalla()==1) {
+				controlador.plusPantalla();
 	}
+		}
 }
 	
 	@Override
 	public void keyPressed() {
 		switch (controlador.darPantalla()) {
 		case 3:
-		//Presiono la tecla para que pase a la siguiente pantalla
+		//Presiono la tecla arriba para que pase a la siguiente pantalla
 		if(keyCode == UP) {
 			controlador.darEscenas()[3].darElemento().setPosY(500);
 		}else {
