@@ -71,7 +71,7 @@ public class Principal extends PApplet{
 		naveEspacial = loadImage("NaveEspacial.png");
 		
 	//Creacion de elementos
-		Elemento elementoSol = new Elemento("Sol", false, 1, sol, 0,0);
+		Elemento elementoSol = new Elemento("Sol", false, 1, sol, 100,100);
 		Elemento elementoNiño = new Elemento("Niño", false, 1, niño, 255,255);
 		Elemento elementoArbol = new Elemento("Arbol", false, 1, arbol, 255,255);
 		Elemento elementoSalva = new Elemento("SalvaVidas", false, 1, salvaVidas, 255,255);
@@ -106,6 +106,7 @@ public class Principal extends PApplet{
 			
 		switch (controlador.darPantalla()) {
 		case 0:
+			//PANTALLA INICIO
 			//Imagen Pantalla Inicio 
 			image(controlador.darEscenas()[0].darImagen(), 0, 0);
 			
@@ -116,14 +117,58 @@ public class Principal extends PApplet{
 			
 			break;
 		case 1:
+			//ESCENA 1
 			//Imagen Escena 1
 			image(controlador.darEscenas()[1].darImagen(), 0, 0);
 			
 			//Imagen Elemento de Escena 1 - Sol
+			imageMode(CENTER);
 			image(controlador.darEscenas()[1].darElemento().getImagen(),controlador.darEscenas()[1].darElemento().getPosX(),controlador.darEscenas()[1].darElemento().getPosY());
-		
+			imageMode(CORNER);
+			
+			// Si esta el mouse encima del Boton mostrar imagen Boton Inicio Oprimido
+			if (mouseX > 100 && mouseX < 100 + 377 && mouseY > 100 && mouseY < 100 + 377) {
+				image(elemenOprimido[0], controlador.darEscenas()[1].darElemento().getPosX()-182, controlador.darEscenas()[1].darElemento().getPosY()-182);
+			}
 		}
 	}
-
+	
+	@Override
+	public void mousePressed() {
+		switch (controlador.darPantalla()) {
+		case 0:
+			//PANTALLA INICIO
+			//Si se le da clic al boton, pasar a la siguiente pantalla Escena 1
+			if (mouseX > 660 && mouseX < 660 + 388 && mouseY > 656 && mouseY < 656 + 348) {
+				controlador.plusPantalla();
+				}
+			break;
+		case 1:
+			//ESCENA 1
+			//Agarrar el Elemento 1 - Sol
+			if (mouseX > 100 && mouseX < 100 + 365 && mouseY > 100 && mouseY < 100 + 365) {
+				sel = controlador.darEscenas()[1].darElemento();
+				}
+		}
+	}
+	
+	@Override
+	public void mouseDragged() {
+		//Arrastrar el Elemento 1 - Sol
+			if(sel != null) {
+				sel.setPosX(mouseX);
+				sel.setPosY(mouseY);
+		}
+	}
+	
+	@Override
+	public void mouseReleased() {
+		sel = null;
+		int tempX = controlador.darEscenas()[1].darElemento().getPosX();
+		int tempY = controlador.darEscenas()[1].darElemento().getPosY();
+		if (tempX >89 && tempY >609 && controlador.darPantalla()==1) {
+			controlador.plusPantalla();
+		}
+	}
 
 }
