@@ -82,7 +82,7 @@ public class Principal extends PApplet{
 		Elemento elementoEstrella = new Elemento("Estrella", false, 1, estrella, 248,94);
 		Elemento elementoNiño = new Elemento("Niño", false, 1, niño, 255,610);
 		Elemento elementoArbol = new Elemento("Arbol", false, 1, arbol, 520,300);
-		Elemento elementoSalva = new Elemento("SalvaVidas", false, 1, salvaVidas, 255,255);
+		Elemento elementoSalva = new Elemento("SalvaVidas", false, 1, salvaVidas, 320,70);
 		Elemento elementoNave = new Elemento("NaveEspacial", false, 1, naveEspacial, 255,255);
 		
 	//Creacion de escenas
@@ -194,14 +194,34 @@ public class Principal extends PApplet{
 			break;
 		case 6:
 			//ESCENA 3-1 ARBOL
-			//Imagen Escena 4
+			//Imagen Escena 3-1
 			image(controlador.darEscenas()[6].darImagen(), 0, 0);
 			
 			fill(0);
 			ellipse(255, 255, 30, 30);
+			break;
+		case 7:
+			//ESCENA 4 SALVAVIDAS
+			//Imagen Escena 4
+			image(controlador.darEscenas()[7].darImagen(), 0, 0);
+			
+			//Imagen Elemento de Escena 4 - SalvaVidas
+			image(controlador.darEscenas()[7].darElemento().getImagen(),controlador.darEscenas()[7].darElemento().getPosX(),controlador.darEscenas()[7].darElemento().getPosY());
+			
+			// Si esta el mouse encima del Boton mostrar imagen Boton Inicio Oprimido
+			if (mouseX > 320 && mouseX < 320 + 327 && mouseY > 7 && mouseY < 70 + 331) {
+				image(elemenOprimido[2], controlador.darEscenas()[7].darElemento().getPosX()+171, controlador.darEscenas()[7].darElemento().getPosY()-2);
+			}
+			break;
+		case 8:
+			//ESCENA 4-1 SALVAVIDAS
+			//Imagen Escena 4-1
+			image(controlador.darEscenas()[8].darImagen(), 0, 0);
+			
+			fill(0);
+			ellipse(255, 255, 30, 30);
+			break;
 		}
-		
-		
 	}
 	
 	@Override
@@ -245,6 +265,19 @@ public class Principal extends PApplet{
 				controlador.plusPantalla();
 				}
 			break;
+		case 7:
+			//ESCENA 4 SALVAVIDAS
+			if (mouseX > 320 && mouseX < 320 + 327 && mouseY > 7 && mouseY < 70 + 331) {
+				controlador.plusPantalla();
+				}
+			break;
+		case 8:
+			//ESCENA 4-1 SALVAVIDAS
+			if (mouseX > 255 && mouseX < 50 + 276 && mouseY > 50 && mouseY < 255 + 50) {
+				controlador.plusPantalla();
+				}
+			break;
+			
 		}
 	}
 	
