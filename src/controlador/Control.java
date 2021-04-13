@@ -1,5 +1,7 @@
 package controlador;
 
+import java.util.ArrayList;
+
 import logica.Cuento;
 import logica.Elemento;
 import logica.Escena;
@@ -31,6 +33,10 @@ public class Control {
 	
 	public void menosPantalla () {
 		pantalla--;
+	}
+	
+	public ArrayList<String> exportarTexto(){
+		return logica.cambioTexto(logica.darCuento());
 	}
 	
 	public void setPantalla (int pantalla) {

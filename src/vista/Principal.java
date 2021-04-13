@@ -1,4 +1,9 @@
 package vista;
+import java.awt.event.ActionEvent;
+import javax.swing.Timer;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import controlador.Control;
 import logica.Cuento;
 import logica.Elemento;
@@ -37,11 +42,15 @@ public class Principal extends PApplet{
 	PImage salvaVidas;
 	PImage naveEspacial;
 	
+	PImage pasto;
+	
 	private Control controlador;
+	int contador = 0;
 	
 	@Override
 	public void setup() {
 		sel = null;
+		
 	// Cargando PImages fondos
 		escenas = new PImage[11];
 		escenas[0] = loadImage("PantallaInicio.jpg");
@@ -77,11 +86,14 @@ public class Principal extends PApplet{
 		salvaVidas = loadImage("Salvavidas.png");
 		naveEspacial = loadImage("NaveEspacial.png");
 		
+	//Para que el sol pase detras del pasto
+		pasto = loadImage("Pasto.png");
+		
 	//Creacion de elementos
 		Elemento elementoSol = new Elemento("Sol", false, 1, sol, 100,100);
 		Elemento elementoEstrella = new Elemento("Estrella", false, 1, estrella, 248,94);
 		Elemento elementoNiño = new Elemento("Niño", false, 1, niño, 255,610);
-		Elemento elementoArbol = new Elemento("Arbol", false, 1, arbol, 520,300);
+		Elemento elementoArbol = new Elemento("Arbol", false, 1, arbol, 630,590);
 		Elemento elementoSalva = new Elemento("SalvaVidas", false, 1, salvaVidas, 320,70);
 		Elemento elementoNave = new Elemento("NaveEspacial", false, 1, naveEspacial, 310,610);
 		
@@ -114,7 +126,6 @@ public class Principal extends PApplet{
 	
 	@Override
 	public void draw() {
-		System.out.println(mouseX + "," + mouseY);
 		background(255);
 			
 		switch (controlador.darPantalla()) {
@@ -137,12 +148,13 @@ public class Principal extends PApplet{
 			//Imagen Elemento de Escena 1 - Sol
 			imageMode(CENTER);
 			image(controlador.darEscenas()[1].darElemento().getImagen(),controlador.darEscenas()[1].darElemento().getPosX(),controlador.darEscenas()[1].darElemento().getPosY());
-			imageMode(CORNER);
-			
+
 			// Si esta el mouse encima del Sol mostrar imagen Sol Oprimido
-			if (mouseX > 100 && mouseX < 100 + 377 && mouseY > 100 && mouseY < 100 + 377) {
-				image(elemenOprimido[0], controlador.darEscenas()[1].darElemento().getPosX()-182, controlador.darEscenas()[1].darElemento().getPosY()-182);
+			if (mouseX > 100 && mouseX < 100 + 365 && mouseY > 100 && mouseY < 100 + 365) {
+				image(elemenOprimido[0], controlador.darEscenas()[1].darElemento().getPosX(), controlador.darEscenas()[1].darElemento().getPosY());
 			}
+			imageMode(CORNER);
+			image(pasto, 0, 27);
 			break;
 		case 2:
 			//ESCENA 1-1 ESTRELLA
@@ -154,10 +166,12 @@ public class Principal extends PApplet{
 			image(controlador.darEscenas()[2].darElemento().getImagen(),controlador.darEscenas()[2].darElemento().getPosX(),controlador.darEscenas()[2].darElemento().getPosY());
 			imageMode(CORNER);
 			
+			imageMode(CENTER);
 			// Si esta el mouse encima de la Estrella mostrar imagen Estrella Oprimida
 			if (mouseX > 248 && mouseX < 248 + 65 && mouseY > 94 && mouseY < 94 + 64) {
-			image(elemenOprimido[4], controlador.darEscenas()[2].darElemento().getPosX()-32, controlador.darEscenas()[2].darElemento().getPosY()-32);
+			image(elemenOprimido[4], controlador.darEscenas()[2].darElemento().getPosX(), controlador.darEscenas()[2].darElemento().getPosY());
 			}
+			imageMode(CORNER);
 			break;
 		case 3:
 			//ESCENA 2 BRINCA
@@ -173,31 +187,30 @@ public class Principal extends PApplet{
 			//ESCENA 2-2 BRINCA
 			//Imagen Escena 2-2
 			image(controlador.darEscenas()[4].darImagen(), 0, 0);
-			
-			fill(0);
-			ellipse(255, 255, 30, 30);
-			
+			esperar();
 			break;
 		case 5:
 			//ESCENA 3 ARBOL
 			//Imagen Escena 3
 			image(controlador.darEscenas()[5].darImagen(), 0, 0);
 			
+			imageMode(CENTER);
 			//Imagen Elemento de Escena 3 - Arbol
 			image(controlador.darEscenas()[5].darElemento().getImagen(),controlador.darEscenas()[5].darElemento().getPosX(),controlador.darEscenas()[5].darElemento().getPosY());
+			imageMode(CORNER);
 			
+			imageMode(CENTER);
 			// Si esta el mouse encima del Arbol mostrar imagen Arbol Oprimido
-			if (mouseX > 520 && mouseX < 520 + 276 && mouseY > 300 && mouseY < 300 + 586) {
-				image(elemenOprimido[1], controlador.darEscenas()[5].darElemento().getPosX()-14, controlador.darEscenas()[5].darElemento().getPosY()+124);
+			if (mouseX > 630 && mouseX < 630 + 276 && mouseY > 590 && mouseY < 590 + 586) {
+				image(elemenOprimido[1], controlador.darEscenas()[5].darElemento().getPosX()+3, controlador.darEscenas()[5].darElemento().getPosY()+67);
 			}
+			imageMode(CORNER);
 			break;
 		case 6:
 			//ESCENA 3-1 ARBOL
 			//Imagen Escena 3-1
 			image(controlador.darEscenas()[6].darImagen(), 0, 0);
-			
-			fill(0);
-			ellipse(255, 255, 30, 30);
+			esperar();
 			break;
 		case 7:
 			//ESCENA 4 SALVAVIDAS
@@ -209,16 +222,14 @@ public class Principal extends PApplet{
 			
 			// Si esta el mouse encima del SalvaVidas mostrar imagen SalvaVidas Oprimido
 			if (mouseX > 320 && mouseX < 320 + 327 && mouseY > 7 && mouseY < 70 + 331) {
-				image(elemenOprimido[2], controlador.darEscenas()[7].darElemento().getPosX()+171, controlador.darEscenas()[7].darElemento().getPosY()-2);
+				image(elemenOprimido[2], controlador.darEscenas()[7].darElemento().getPosX()+172, controlador.darEscenas()[7].darElemento().getPosY()-3);
 			}
 			break;
 		case 8:
 			//ESCENA 4-1 SALVAVIDAS
 			//Imagen Escena 4-1
 			image(controlador.darEscenas()[8].darImagen(), 0, 0);
-			
-			fill(0);
-			ellipse(255, 255, 30, 30);
+			esperar();
 			break;
 		case 9:
 			//ESCENA 5 NAVE ESPACIAL
@@ -228,12 +239,16 @@ public class Principal extends PApplet{
 			//Imagen Elemento de Escena 5 - Nave Espacial
 			imageMode(CENTER);
 			image(controlador.darEscenas()[9].darElemento().getImagen(),controlador.darEscenas()[9].darElemento().getPosX(),controlador.darEscenas()[9].darElemento().getPosY());
-			imageMode(CORNER);
-			
+
 			// Si esta el mouse encima de la Nave Espacial mostrar imagen Nave Espacial Oprimido
-			if (mouseX > 310 && mouseX < 310 + 399 && mouseY > 610 && mouseY < 610 + 559) {
-				image(elemenOprimido[3], controlador.darEscenas()[9].darElemento().getPosX()-199, controlador.darEscenas()[9].darElemento().getPosY()-279);
+			if (mouseX > 310 && mouseX < 310 + 399 && mouseY > 610 && mouseY < 610 + 554) {
+				image(elemenOprimido[3], controlador.darEscenas()[9].darElemento().getPosX(), controlador.darEscenas()[9].darElemento().getPosY());
+				
+				noStroke();
+				noFill();
+				rect(702, 664, 399, 554);
 				}
+			imageMode(CORNER);
 			break;
 		case 10:
 			//ESCENA 5-1 NAVE ESPACIAL
@@ -241,11 +256,20 @@ public class Principal extends PApplet{
 			image(controlador.darEscenas()[10].darImagen(), 0, 0);
 			
 			// Si esta el mouse encima del Boton mostrar imagen Boton Final Oprimido
-			if (mouseX > 100 && mouseX < 100 + 377 && mouseY > 100 && mouseY < 100 + 377) {
-				image(botones[1], 255, 255);
+			if (mouseX > 662 && mouseX < 662 + 388 && mouseY > 657 && mouseY < 657 + 348) {
+				image(botones[1], 662, 657);
 			}
 			break;
 		}
+	}
+	
+	public void creatTXT(ArrayList<String> textUpper) {
+		Object[] newText = textUpper.toArray();
+		String[] listToSave = new String[newText.length];
+		for (int i = 0; i < newText.length; i++) {
+			listToSave[i] = String.valueOf(newText[i]);
+		}
+		saveStrings("newText.txt",listToSave);
 	}
 	
 	@Override
@@ -271,42 +295,33 @@ public class Principal extends PApplet{
 				controlador.plusPantalla();
 				}
 			break;
-		case 4:
-			//ESCENA 2-2 BRINCA
-			if (mouseX > 255 && mouseX < 50 + 276 && mouseY > 50 && mouseY < 255 + 50) {
-				controlador.plusPantalla();
-				}
-			break;
 		case 5:
 			//ESCENA 3 ARBOL
 			if (mouseX > 520 && mouseX < 520 + 276 && mouseY > 300 && mouseY < 300 + 586) {
 				controlador.plusPantalla();
-				}
-			break;
-		case 6:
-			//ESCENA 3-1 ARBOL
-			if (mouseX > 255 && mouseX < 50 + 276 && mouseY > 50 && mouseY < 255 + 50) {
-				controlador.plusPantalla();
+				frameCount = 0;
 				}
 			break;
 		case 7:
 			//ESCENA 4 SALVAVIDAS
 			if (mouseX > 320 && mouseX < 320 + 327 && mouseY > 7 && mouseY < 70 + 331) {
 				controlador.plusPantalla();
-				}
-			break;
-		case 8:
-			//ESCENA 4-1 SALVAVIDAS
-			if (mouseX > 255 && mouseX < 50 + 276 && mouseY > 50 && mouseY < 255 + 50) {
-				controlador.plusPantalla();
+				frameCount = 0;
 				}
 			break;
 		case 9:
 			//ESCENA 5 NAVE ESPACIAL
 			//Agarrar el Elemento Nave Espacial
-			if (mouseX > 310 && mouseX < 310 + 399 && mouseY > 610 && mouseY < 610 + 559) {
+			if (mouseX > 310 && mouseX < 310 + 399 && mouseY > 610 && mouseY < 610 + 554) {
 				sel2 = controlador.darEscenas()[9].darElemento();
 				}
+			break;
+		case 10:
+			//ESCENA 5-1 NAVE ESPACIAL
+			//Cuando le de clic pasar de nuevo a la pantalla Inicio, descargandamo el txt nuevo
+			if (mouseX > 662 && mouseX < 662 + 388 && mouseY > 657 && mouseY < 657 + 348) {
+				creatTXT(controlador.exportarTexto());
+			}
 		}
 	}
 	
@@ -338,7 +353,7 @@ public class Principal extends PApplet{
 		sel = null;
 		int tempX = controlador.darEscenas()[1].darElemento().getPosX();
 		int tempY = controlador.darEscenas()[1].darElemento().getPosY();
-		if (tempX >89 && tempY >609 && controlador.darPantalla()==1) {
+		if (tempX >89 && tempY >500 && controlador.darPantalla()==1) {
 			controlador.plusPantalla();
 		}
 		break;
@@ -347,8 +362,8 @@ public class Principal extends PApplet{
 		sel2 = null;
 		int tempX2 = controlador.darEscenas()[9].darElemento().getPosX();
 		int tempY2 = controlador.darEscenas()[9].darElemento().getPosY();
-		if (tempX2 >=655 && tempY2 >=633 && controlador.darPantalla()==1) {
-				controlador.plusPantalla();
+		if (tempX2 <=800 && tempY2 <=664 && controlador.darPantalla()==9) {
+			controlador.plusPantalla();
 	}
 		}
 }
@@ -358,14 +373,31 @@ public class Principal extends PApplet{
 		switch (controlador.darPantalla()) {
 		case 3:
 		//Presiono la tecla arriba para que pase a la siguiente pantalla
-		if(keyCode == UP) {
-			controlador.darEscenas()[3].darElemento().setPosY(500);
-		}else {
-			controlador.darEscenas()[3].darElemento().setPosY(610);
-			controlador.plusPantalla();
-		}
+			if(keyCode == UP ) {
+				controlador.darEscenas()[3].darElemento().setPosY(500);
+				if (contador>=3 ) {
+					frameCount = 0;
+					controlador.plusPantalla();
+				}
+				contador++;
+				miTiempo.start();
+			}
 		break;
 	}
 }
-
+	
+	Timer miTiempo = new Timer(1000,new ActionListener() {
+		
+		
+		public void actionPerformed(ActionEvent e) {
+			controlador.darEscenas()[3].darElemento().setPosY(600);
+		}
+	});
+	
+	private void esperar() {
+		if (frameCount >= 180) {
+			controlador.plusPantalla();
+		}
+	}
+	
 }

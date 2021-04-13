@@ -27,7 +27,7 @@ public class Cuento {
 	
 	private void cargarArchivo() throws Exception {
 		FileReader fr = null;
-		File prueba = new File("data/cuento.txt");
+		File prueba = new File("cuento.txt");
 		try {
 			fr = new FileReader(prueba);
 			BufferedReader br = new BufferedReader(fr);
@@ -69,13 +69,33 @@ public class Cuento {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		for (int i = 0; i < miCuento.darCuento().size(); i++) {
-			System.out.println(miCuento.darCuento().get(i));
+		for (int i = 0; i < miCuento.cambioTexto(miCuento.darCuento()).size(); i++) {
+			System.out.println(miCuento.cambioTexto(miCuento.darCuento()).get(i));
 		}
-		System.out.println(miCuento.darCuento().size());
+		miCuento.cambioTexto(miCuento.darCuento());
 	}
 
 	public Escena[] darEscena() {
 		return escenitas;
+	}
+	
+	public ArrayList<String> cambioTexto(ArrayList<String> cuento) {
+		String[] comparar = {"sol,","estrella","brinco","arbol","salvavidas","nave","espacial,"};
+		ArrayList<String> frases = new ArrayList<String>();
+		for (int i = 0; i < cuento.size(); i++) {
+			String linea = cuento.get(i);
+			String[] palabras = linea.split(" ");
+			String temporal = "";
+			for (int j = 0; j < palabras.length; j++) {
+				for (int l = 0; l < comparar.length; l++) {
+					if (palabras[j].equalsIgnoreCase(comparar[l])) {
+						palabras[j] = palabras[j].toUpperCase();
+					}
+				}
+				temporal+= palabras[j] + " ";
+			}
+			frases.add(temporal);
+		}
+		return frases;
 	}
 }
